@@ -5,7 +5,7 @@ import Alert from "react-bootstrap/Alert";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 var AWS = require("aws-sdk");
-var albumBucketName = "analyzere";
+var BucketName = "analyzere";
 AWS.config.update({
   accessKeyId: "XXXX",
   secretAccessKey: "XXXXXX",
@@ -14,7 +14,7 @@ AWS.config.update({
 
 var s3 = new AWS.S3({
   apiVersion: "2006-03-01",
-  params: { Bucket: albumBucketName },
+  params: { Bucket: BucketName },
 });
 
 var lambda = new AWS.Lambda({ apiVersion: "2015-03-31", region: "us-east-1" });
@@ -43,10 +43,12 @@ export default class App extends Component {
     window.location.reload();
   };
 
+  // Used to close the alert.
   setshow = () => {
     this.setState({ error: false });
   };
 
+  // Check if a file is txt file or not.
   filevalidation() {
     var re = /(?:\.([^.]+))?$/;
     var ext = re.exec(this.state.file.name)[1];
@@ -65,6 +67,7 @@ export default class App extends Component {
     }
   };
 
+  // Runs after successful response.
   success = () => {
     return (
       <div>
@@ -105,7 +108,7 @@ export default class App extends Component {
       Body: this.state.file,
     };
     var param2 = {
-      FunctionName: "arn:aws:lambda:us-east-1:542725379976:function:testLamda",
+      FunctionName: "arn:aws:lambda:us-east-1:XXXXXX:function:testLamda",
       Payload: JSON.stringify(inputforinvoke),
     };
     var options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
