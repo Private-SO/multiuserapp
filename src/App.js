@@ -103,7 +103,7 @@ export default class App extends Component {
       keyName: filename,
     };
     var params1 = {
-      Bucket: albumBucketName,
+      Bucket: BucketName,
       Key: filename,
       Body: this.state.file,
     };
